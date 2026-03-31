@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>홈즈컴퍼니 인재상 — 대분류별 핵위 역량 3선 추천</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #09090b;
+    --card: #18181b;
+    --card-hover: #1f1f23;
+    --border: #27272a;
+    --border-light: #3f3f46;
+    --text: #fafafa;
+    --text-muted: #a1a1aa;
+    --text-dim: #71717a;
+    --accent-blue: #3b82f6;
+    --accent-purple: #a855f7;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+    --high: #22c55e;
+    --mid: #f59e0b;
+    --low: #ef4444;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 48px 24px;
+    background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(168,85,247,0.08));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .header-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    background: rgba(59,130,246,0.15);
+    color: var(--accent-blue);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Selection Criteria */
+  .criteria-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .criteria-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .criteria-item .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .criteria-item .value {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Category Section */
+  .category {
+    margin-bottom: 48px;
+  }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .category-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .cat-execute .category-icon { background: rgba(59,130,246,0.15); }
+  .cat-pro .category-icon { background: rgba(168,85,247,0.15); }
+  .cat-together .category-icon { background: rgba(16,185,129,0.15); }
+
+  .category-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .category-subtitle {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+  .cat-execute .category-title { color: var(--accent-blue); }
+  .cat-pro .category-title { color: var(--accent-purple); }
+  .cat-together .category-title { color: var(--accent-emerald); }
+
+  /* Competency Cards */
+  .cards { display: grid; gap: 16px; }
+
+  .comp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .comp-card:hover { border-color: var(--border-light); }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 24px 0;
+    gap: 16px;
+  }
+  .card-top-left { flex: 1; }
+  .card-number {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .card-name-ko {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .card-name-en {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  /* Score badges */
+  .scores {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .score-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    min-width: 56px;
+  }
+  .score-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .score-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: 2px;
+  }
+  .score-dot.high { background: var(--high); }
+  .score-dot.mid { background: var(--mid); }
+  .score-dot.low { background: var(--low); }
+  .score-text {
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .score-text.high { color: var(--high); }
+  .score-text.mid { color: var(--mid); }
+  .score-text.low { color: var(--low); }
+
+  /* Card body */
+  .card-body { padding: 16px 24px 24px; }
+
+  .tft-connection {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .tft-connection-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .tft-connection p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .tft-connection .quote {
+    color: var(--text);
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  .reason-section {
+    margin-top: 12px;
+  }
+  .reason-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .reason-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .reason-list li {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-left: 16px;
+    position: relative;
+  }
+  .reason-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+  }
+
+  /* Excluded items */
+  .excluded {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.02);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+  .excluded-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .excluded-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .excluded-tag {
+    font-size: 12px;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.04);
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .excluded-tag .reason {
+    color: var(--low);
+    font-size: 11px;
+  }
+
+  /* Summary */
+  .summary {
+    background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(16,185,129,0.06));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: 40px;
+  }
+  .summary h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .summary-col {
+    padding: 16px;
+    border-radius: var(--radius);
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+  }
+  .summary-col h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .summary-col.col-exec h3 { color: var(--accent-blue); }
+  .summary-col.col-pro h3 { color: var(--accent-purple); }
+  .summary-col.col-tog h3 { color: var(--accent-emerald); }
+  .summary-col ol {
+    list-style: decimal;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .summary-col li { font-weight: 500; }
+
+  .footer-note {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: rgba(244,158,11,0.08);
+    border: 1px solid rgba(244,158,11,0.2);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .footer-note strong { color: var(--accent-amber); }
+
+  @media (max-width: 768px) {
+    .criteria-bar { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .card-top { flex-direction: column; }
+    .scores { align-self: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-badge">일하는방식 TFT × 역량 프레임워크</div>
+    <h1>인재상 핵심 역량 3선 추천안</h1>
+    <p>18개 역량 항목의 판별가능성·유효성 평가 + TFT 6~8차 논의 포인트를 교차 분석하여, 대분류별 최적 3개 역량을 선정했습니다.</p>
+  </div>
+
+  <!-- Selection Criteria -->
+  <div class="criteria-bar">
+    <div class="criteria-item">
+      <div class="label">선정 기준 ①</div>
+      <div class="value">채용·평가 장면 판별 가능성</div>
+    </div>
+    <div class="criteria-item">
+      <div class="label">선정 기준 ②</div>
+      <div class="value">6개월 후 시간적 유효성</div>
+    </div>
+    <div class="criteria-item">
+      <div class="label">선정 기준 ③</div>
+      <div class="value">TFT 논의 합의 포인트 부합도</div>
+    </div>
+  </div>
+
+  <!-- ========== 반드시 해낸다 ========== -->
+  <div class="category cat-execute">
+    <div class="category-header">
+      <div class="category-icon">🔥</div>
+      <div>
+        <div class="category-title">반드시 해낸다 <span class="category-subtitle">— 실행 완결성</span></div>
+        <div class="category-subtitle">5개 항목 중 3개 선정</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <!-- 1. 끝까지 완수 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#01</div>
+            <div class="card-name-ko">끝까지 완수</div>
+            <div class="card-name-en">Execution Ownership</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot mid"></div>
+              <span class="score-text mid">Mid</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>TFT 전원이 인재상 1순위로 합의. <span class="quote">"맡은 일을 끝까지 가져간다"</span>, <span class="quote">"완료되지 않은 일을 완료된 것처럼 처리하지 않는다"</span>가 6차 초안에서 반복 언급. 퇴직 판단 시나리오로 <span class="quote">"반복적 마감 초과, 완료 기준을 스스로 낮추는 패턴"</span>까지 구체화됨.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>OKR/KPI 달성률, 프로젝트 완료율 등 정량 지표로 평가 장면에서 직접 측정 가능</li>
+              <li>프로젝트 사이클 반복으로 6개월 내 일관성 패턴 확인 가능</li>
+              <li>TFT 전원(김지희·이충일·신예진·박지영·홎순민·이선아)이 공통 선정한 핵심 역량</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 장애 대응 방식 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#02</div>
+            <div class="card-name-ko">장애 대응 방식</div>
+            <div class="card-name-en">Solution-first</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot mid"></div>
+              <span class="score-text mid">Mid</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>김지희 초안: <span class="quote">"장애물이 생겼을 때 보고와 동시에 대안을 가져온다"</span>, <span class="quote">"'어렭다'는 말보다 '이렇게 하면 된다'는 말을 먼저 한다"</span>. 일하는 방식 ③번 원칙 <span class="quote">"문제는 빠르게, 해결은 챉임자가"</span>와 직결. 7차 도전에서 <span class="quote">"책임자 없는 문제 제기는 에너지만 소진"</span>이라는 합의 도출.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>장애 발생 시 실제 대응 행동(대안 제시 속도, 에스컬레이션 적절성)을 동료·리더가 직접 관찰 가능</li>
+              <li>업무 중 장애는 상시 발생 → 단기간 내 반복 관찰 가능한 행동 특성</li>
+              <li>TFT 일하는 방식 원칙과 인재상 행동 정의 모두에서 핵심 키워드로 등장</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 방향 재설정 능력 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#03</div>
+            <div class="card-name-ko">방향 재설정 능력</div>
+            <div class="card-name-en">Adaptive Execution</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot low"></div>
+              <span class="score-text low">Low</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>7차 논의 최대 이슈: <span class="quote">"방향과 맥락이 너무 자주 바뀜"</span>, <span class="quote">"목표를 정했으면 결과를 볼 수 있는 최소한의 시간"</span>. 일하는 방식 ⑥ <span class="quote">"전략 변화와 목표 변화를 구분해서 설명한다"</span>와 연동. 채용 판별은 Low이나, 홈즈의 빈번한 전략 전환 환경에서 구성원에게 가장 필요한 역량으로 TFT가 강졄.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>실제 업무에서 계획 변경 시 대응 행동(피봇 속도, 새 기준 설정)을 프로젝트 단위로 관찰 가능</li>
+              <li>홈즈컴퍼니 비즈니스 환경(빈번한 전략 전환)에 직접 대응하는 역량</li>
+              <li>채용 판별 Low → STAR 면접 + 과제전형 보완 설계 필요 (보완안 아래 참고)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="excluded">
+      <div class="excluded-title">제외 항목 및 사유</div>
+      <div class="excluded-items">
+        <span class="excluded-tag">완료 기준의 정직성 <span class="reason">— 채용 Low, 자기보고 기반 진위 검증 어려움</span></span>
+        <span class="excluded-tag">역할 초과 실행 <span class="reason">— 6개월 유효성 Mid, 조직문화·리더 스타일에 의존</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 프로답게 해낸다 ========== -->
+  <div class="category cat-pro">
+    <div class="category-header">
+      <div class="category-icon">⚡</div>
+      <div>
+        <div class="category-title">프로답게 해낸다 <span class="category-subtitle">— 기준·판단</span></div>
+        <div class="category-subtitle">7개 항목 중 3개 선정</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <!-- 7. 근거 기반 판단 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#07</div>
+            <div class="card-name-ko">근거 기반 판단</div>
+            <div class="card-name-en">Evidence-based Thinking</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>홍수민 초안: <span class="quote">"감이나 직관보다 데이터와 논리로 판단"</span>, <span class="quote">"목소리 큰 사람이 아니라 근거 있는 사람의 판단을 따륹다"</span>. 일하는 방식 ③ <span class="quote">"우리는 근거로 판단한다"</span>로 전원 합의. 그라운드룰 피드백 영역에서도 <span class="quote">"A라는 이유로 B 결과가 예상되니 C로 수정한자"</span> 구조로 구체화.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>3개 평가 차원 모두 High — 18개 항목 중 판별력 최상위 그룹</li>
+              <li>케이스 면접에서 의사결정 과정의 논리 구조·데이터 활용 여부 구조적 평가 가능</li>
+              <li>사고방식 자체가 판단 기준 → 업무 영역 변경에도 일관 유지</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. 구조적 사고 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#08</div>
+            <div class="card-name-ko">구조적 사고</div>
+            <div class="card-name-en">Structured Thinking</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>홍수민: <span class="quote">"애매한 상태로 넘기기보다 문제를 구조화하고 기준을 명환히 한다"</span>. 이선아 '맥락적 인지' 역량: <span class="quote">"이 일이 전체 목표의 어느 단계에 있는지 명확히 설명할 수 있는가"</span>. 7차 도전에서 <span class="quote">"카테고리를 더 좁힐 수 있다"</span>는 피드백 자체가 구조적 사고 적용 사례.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>3개 평가 차원 모두 High — 케이스 면접·화이트보드에서 실시간 관찰 평가 가능</li>
+              <li>인지적 역량으로 단기간에 소실되지 않음, 복잡도 높은 업무일수로 판별력 증가</li>
+              <li>근거 기반 판단과 시너지 — 구조화 → 근거 도출 → 판단의 체인 형성</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. 품질 완성도 집착 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#12</div>
+            <div class="card-name-ko">품질 완성도 집착</div>
+            <div class="card-name-en">Craft Excellence</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>이선아: <span class="quote">"Good은 Great의 적이다"</span>, <span class="quote">"마감 시간 내에서 구현 가능한 '최고의 디테일' 한 가지를 반드시 추가한다"</span>. 이충일: <span class="quote">"결과물의 품질에 타협하지 않는다"</span>. 그라운드룷 Self-Review 항목으로 <span class="quote">"결과물 제출 직전, 기초적인 품질 검수를 마쳤음을 코멘트로 남긴다"</span>까지 구체화.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>폨트폴리오·과제전형에서 결과물 디테일 직접 확인 — 가장 판별력 높은 역량</li>
+              <li>산추물(코드, 문서, 디자인)의 완성도를 결과물 자체로 측정 → 주관성 최소</li>
+              <li>완성도 기준은 내재화된 특성 → 6개월 내 유의미한 변동 없음</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="excluded">
+      <div class="excluded-title">제외 항목 및 사유</div>
+      <div class="excluded-items">
+        <span class="excluded-tag">기준 보유 <span class="reason">— 근거 기반 판단에 포함 가능, 중복 회피</span></span>
+        <span class="excluded-tag">개선 집착 <span class="reason">— 채용 Mid, 6개월 Mid (안정기 진입 후 변동)</span></span>
+        <span class="excluded-tag">본질 이해 <span class="reason">— 구조적 사고와 상당 부분 중복</span></span>
+        <span class="excluded-tag">기준 기반 커뮤니케이션 <span class="reason">— 6개월 Mid, 헥리적 안전감에 의존</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 함께 해낸다 ========== -->
+  <div class="category cat-together">
+    <div class="category-header">
+      <div class="category-icon">🤝</div>
+      <div>
+        <div class="category-title">함께 해낸다 <span class="category-subtitle">— 협업·조직</span></div>
+        <div class="category-subtitle">6개 항목 중 3개 선정</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <!-- 14. 연결 책임 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#14</div>
+            <div class="card-name-ko">연결 책임</div>
+            <div class="card-name-en">End-to-end Awareness</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot mid"></div>
+              <span class="score-text mid">Mid</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>김지희: <span class="quote">"내 파트가 끝나도 전체 결과가 나오기 전까지 관심을 끊지 않는다"</span>. 이선아 '유기적 협응': <span class="quote">"내 결과물을 받는 동료가 추가 질문 없이 즉시 다음 행동을 시작할 수 있는 상태인가"</span>. 퇴지 판단: <span class="quote">"개인 성과는 높지만 정보 단절, 협업 회피 패턴 지속"</span>으로 TFT 전원 합의.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>인수인계 품질, 다음 단계 고려 여부를 결과물로 직접 확인 가능</li>
+              <li>함께 해낸다 6개 항목 중 채용·평가·6개월 종합 판별력 최상위</li>
+              <li>TFT 인재상 ③ "함께 해낸다"의 핵심 행동 정의와 직접 매칭</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15. 정보 공유 투명성 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#15</div>
+            <div class="card-name-ko">정보 공유 투명성</div>
+            <div class="card-name-en">Open Communication</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot low"></div>
+              <span class="score-text low">Low</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot mid"></div>
+              <span class="score-text mid">Mid</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>신예진 그라운드룰 핵심: <span class="quote">"문제와 실수는 숨기지 않고 먼저 드러낸다"</span>, <span class="quote">"문제는 늦게 공유할순록 커진다"</span>. 이선아: <span class="quote">"공유하지 않으면 존재하지 않는다"</span>, <span class="quote">"'어떻게 되고 있어요?'라는 질문을 받았다면 이미 공유 타이밍을 놓친 것"</span>. TFT에서 채용 검증 질문까지 구체화(1~3차 질의 설계 완료).</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>이슈 공유 타이밍, Slack 투명성 수준, 리스크 사전 공유 여부로 평가 장면에서 직접 관찰</li>
+              <li>채용 Low이나 신예진이 설계한 3단계 행동면접 질의로 보완 가능</li>
+              <li>TFT 그라운드룰 최다 합의 항목 — 홈즈 조직 문화의 핵심 이슈</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18. 협업 품질 -->
+      <div class="comp-card">
+        <div class="card-top">
+          <div class="card-top-left">
+            <div class="card-number">#18</div>
+            <div class="card-name-ko">협업 품질</div>
+            <div class="card-name-en">Collaboration Quality</div>
+          </div>
+          <div class="scores">
+            <div class="score-badge">
+              <span class="score-label">채용</span>
+              <div class="score-dot mid"></div>
+              <span class="score-text mid">Mid</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">평가</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+            <div class="score-badge">
+              <span class="score-label">6개월</span>
+              <div class="score-dot high"></div>
+              <span class="score-text high">High</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tft-connection">
+            <div class="tft-connection-title">TFT 논의 연결 포인트</div>
+            <p>일하는 방식 ⑥ <span class="quote">"성과를 시스템으로 남긴다"</span>, <span class="quote">"결과를 기록·매뉴얼·프로세스로 자산화한다"</span>. 그라운드룰: <span class="quote">"업무 결과는 문서·자료·데이터 형태로 남겨 공유한다"</span>. 이선아 Self-Review + 맥락적 전달 원칙과 연동. 7차 논의: <span class="quote">"같은 실수의 반복을 경계한다"</span>는 협업 품질 기반의 조직 학습 관점.</p>
+          </div>
+          <div class="reason-section">
+            <div class="reason-title">선정 근거</div>
+            <ul class="reason-list">
+              <li>인수인계 문서 품질, 후속 작업자 추가 작업량, 코드리뷰 피드백으로 직접 측정</li>
+              <li>협업 산출물 품질은 업무 승관 기반 → 역할·도메인 변경에도 일관 유지</li>
+              <li>"성과를 조직의 자산으로 남긴다"는 TFT 일하는 방식 핵심 원칙의 실행 역량</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="excluded">
+      <div class="excluded-title">제외 항목 및 사유</div>
+      <div class="excluded-items">
+        <span class="excluded-tag">팀 결과 우선 <span class="reason">— 채용 Low, 사회적 바람직성 편향 높음</span></span>
+        <span class="excluded-tag">협업 기여 <span class="reason">— 채용 Low, 6개월 Mid (업무 부하에 따라 변동)</span></span>
+        <span class="excluded-tag">도움 요청 능력 <span class="reason">— 채용 Low, 평가 Mid ("적절한 타이밍" 기준 주관적)</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary">
+    <h2>최종 9개 역량 요약</h2>
+    <div class="summary-grid">
+      <div class="summary-col col-exec">
+        <h3>🔥 반드시 해낸다</h3>
+        <ol>
+          <li>끝까지 완수</li>
+          <li>장애 대응 방식</li>
+          <li>방향 재설정 능력</li>
+        </ol>
+      </div>
+      <div class="summary-col col-pro">
+        <h3>⚡ 프로답게 해낸다</h3>
+        <ol>
+          <li>근거 기반 판단</li>
+          <li>구조적 사고</li>
+          <li>품질 완성도 집착</li>
+        </ol>
+      </div>
+      <div class="summary-col col-tog">
+        <h3>🤝 함께 해낸다</h3>
+        <ol>
+          <li>연결 책임</li>
+          <li>정보 공유 투명성</li>
+          <li>협업 품질</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <strong>보완 필요 사항:</strong> 9개 중 "방향 재설정 능력"(채용 Low)과 "정보 공유 투명성"(채용 Low)은 면접만으로 판별이 어렵습니다. 방향 재설정 → 시뮬레이션 과제전형(예: "프로젝트 중 전략 변경 시나리오"), 정보 공유 → 신예진이 설계한 3단계 행동면접(1차 사례질의 → 2차 역질의 → 3차 책임귀인 질의) 병행을 권장합니다.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
