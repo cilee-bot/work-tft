@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>홈즈컴퍼니 인재상 핵심요약</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', -apple-system, sans-serif; background: #ffffff; color: #0f172a; line-height: 1.7; }
+.container { max-width: 880px; margin: 0 auto; padding: 48px 24px 64px; }
+
+/* Header */
+.header { margin-bottom: 40px; text-align: center; }
+.header h1 { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: #0f172a; }
+.header .sub { font-size: 13px; color: #64748b; margin-top: 8px; }
+.badge { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 700; border: 1px solid #e2e8f0; color: #64748b; margin-top: 12px; background: #f8fafc; }
+
+/* Conclusion Banner */
+.conclusion-banner { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; margin-bottom: 36px; }
+.conclusion-banner h2 { font-size: 18px; font-weight: 800; margin-bottom: 20px; color: #0f172a; }
+.priority-flow { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 24px 0; flex-wrap: wrap; }
+.priority-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.priority-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; color: #fff; }
+.priority-circle .label { font-size: 15px; }
+.priority-circle .sub-label { font-size: 10px; font-weight: 500; opacity: 0.9; }
+.p1 { background: linear-gradient(135deg, #7c3aed, #6d28d9); box-shadow: 0 4px 16px rgba(124,58,237,0.25); }
+.p2 { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 4px 16px rgba(37,99,235,0.25); }
+.p3 { background: linear-gradient(135deg, #64748b, #475569); box-shadow: 0 4px 16px rgba(100,116,139,0.2); }
+.arrow { font-size: 24px; color: #cbd5e1; font-weight: 300; }
+.priority-note { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+/* Section */
+.section { margin-bottom: 32px; }
+.section-title { font-size: 16px; font-weight: 800; margin-bottom: 16px; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+.section-title .dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot-purple { background: #7c3aed; }
+.dot-blue { background: #2563eb; }
+.dot-amber { background: #d97706; }
+.dot-green { background: #16a34a; }
+.dot-red { background: #dc2626; }
+
+/* Card */
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.card-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #0f172a; }
+.card p, .card li { font-size: 13px; color: #475569; }
+.card li { margin-bottom: 6px; }
+.card ul { list-style: none; padding: 0; }
+.card ul li::before { content: "→"; margin-right: 8px; color: #94a3b8; }
+
+/* Definition Card */
+.def-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 12px; position: relative; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.def-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.def-card.purple::before { background: #7c3aed; }
+.def-card.blue::before { background: #2563eb; }
+.def-card.slate::before { background: #94a3b8; }
+.def-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.def-name { font-size: 16px; font-weight: 800; color: #0f172a; }
+.def-rank { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; }
+.rank-most { background: #f3e8ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+.rank-high { background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe; }
+.rank-base { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+.def-oneliner { font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+.def-detail { font-size: 13px; color: #475569; line-height: 1.8; }
+
+/* Quote */
+.quote { background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+.quote-text { font-size: 13px; color: #44403c; font-style: italic; font-weight: 600; }
+.quote-source { font-size: 11px; color: #a8a29e; margin-top: 6px; }
+
+/* Gap Comparison */
+.gap-row { display: flex; gap: 12px; margin-bottom: 8px; align-items: center; }
+.gap-label { width: 80px; font-size: 12px; font-weight: 600; color: #475569; text-align: right; flex-shrink: 0; }
+.gap-bar-track { flex: 1; height: 24px; background: #f1f5f9; border-radius: 12px; overflow: hidden; position: relative; }
+.gap-bar-fill { height: 100%; border-radius: 12px; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 11px; font-weight: 700; color: #fff; min-width: 40px; }
+.fill-purple { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
+.fill-blue { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+.fill-green { background: linear-gradient(90deg, #34d399, #16a34a); }
+.fill-amber { background: linear-gradient(90deg, #fbbf24, #d97706); }
+.fill-red { background: linear-gradient(90deg, #f87171, #dc2626); }
+
+/* Insight */
+.insight { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+.insight-label { font-size: 11px; font-weight: 700; color: #7c3aed; margin-bottom: 4px; }
+.insight-text { font-size: 13px; color: #6b21a8; }
+
+/* Decision badge */
+.decision { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px 20px; margin: 8px 0; }
+.decision-label { font-size: 11px; font-weight: 700; color: #16a34a; margin-bottom: 4px; }
+.decision-text { font-size: 13px; color: #15803d; }
+
+/* Warning */
+.warning { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 16px 20px; margin: 8px 0; }
+.warning-label { font-size: 11px; font-weight: 700; color: #d97706; margin-bottom: 4px; }
+.warning-text { font-size: 13px; color: #92400e; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: #f8fafc; }
+th { padding: 10px 12px; font-weight: 600; color: #64748b; text-align: center; font-size: 12px; border-bottom: 2px solid #e2e8f0; }
+th:first-child { text-align: left; }
+td { padding: 12px; text-align: center; border-bottom: 1px solid #f1f5f9; color: #475569; }
+td:first-child { text-align: left; font-weight: 600; color: #1e293b; }
+
+/* Q&A */
+.qa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .qa-grid { grid-template-columns: 1fr; } }
+.qa-item { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+.qa-q { font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 6px; }
+.qa-a { font-size: 13px; color: #1e293b; font-weight: 500; }
+
+/* Footer */
+.footer { text-align: center; font-size: 12px; color: #94a3b8; margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+
+/* Divider */
+.divider { height: 1px; background: #e2e8f0; margin: 32px 0; }
+
+@media print { .card, .def-card, .qa-item { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+    <h1>홈즈컴퍼니 인재상 핵심요약</h1>
+    <div class="sub">CEO 미팅 + TFT 논의 + CultureChat PL 데이터 종합 | 2026.04.21</div>
+    <div class="badge">일하는방식 TFT · FINAL ALIGNMENT</div>
+</div>
+
+<!-- 결론: 우선순위 -->
+<div class="conclusion-banner">
+    <h2>결론: 인재상 우선순위</h2>
+    <div class="priority-flow">
+        <div class="priority-item">
+            <div class="priority-circle p1">
+                <span class="label">함께</span>
+                <span class="sub-label">최우선</span>
+            </div>
+            <div class="priority-note">협업 불가 = 채용 불가</div>
+        </div>
+        <span class="arrow">›</span>
+        <div class="priority-item">
+            <div class="priority-circle p2">
+                <span class="label">프로답게</span>
+                <span class="sub-label">높을수록 좋음</span>
+            </div>
+            <div class="priority-note">1등 수준의 완결성</div>
+        </div>
+        <span class="arrow">›</span>
+        <div class="priority-item">
+            <div class="priority-circle p3">
+                <span class="label">반드시</span>
+                <span class="sub-label">기본 전제</span>
+            </div>
+            <div class="priority-note">끝까지 해내는 마인드</div>
+        </div>
+    </div>
+    <div class="insight">
+        <div class="insight-label">CEO 원칙</div>
+        <div class="insight-text">"워렌버핏의 인재상(주도/성실/윤리)에서 윤리가 기본이듯, 우리에게 '반드시'는 기본이고 '함께'가 우선한다. 정성적 이슈가 많은 우리 사업 특성상 시너지가 필수다."</div>
+    </div>
+</div>
+
+<!-- 인재상 3가지 정의 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-purple"></span>인재상 최종 정의</div>
+
+    <!-- 함께 해낸다 -->
+    <div class="def-card purple">
+        <div class="def-header">
+            <span class="def-name">함께 해낸다</span>
+            <span class="def-rank rank-most">🥇 최우선 가치</span>
+        </div>
+        <div class="def-oneliner">전사 얼라인은 기본. 각 기능/직무가 다른 조직과 시너지를 내는 것.</div>
+        <div class="def-detail">
+            홈즈의 밸류체인(운영팀 데이터 → 중개팀 땅 발굴 → 개발)에서 함께는 필수 요소.
+            한 사람이 건물에 들어가면 그 건물 자체가 변화하기도 한다. 그러나 아무나 할 수 있는 일은 아니다.
+        </div>
+        <div class="decision">
+            <div class="decision-label">결정사항</div>
+            <div class="decision-text">협업이 안 되면 채용 불가. 함께가 홈즈에서 가장 우선하는 가치.</div>
+        </div>
+    </div>
+
+    <!-- 프로답게 해낸다 -->
+    <div class="def-card blue">
+        <div class="def-header">
+            <span class="def-name">프로답게 해낸다</span>
+            <span class="def-rank rank-high">🥈 높을수록 좋은 인재</span>
+        </div>
+        <div class="def-oneliner">최고의 성과물을 내는 것. 높은 기준을 세우고 반드시 해결해 나가는 것.</div>
+        <div class="def-detail">
+            완결성이 없으면 프로답지 않다. 완결되지 않으면 스스로 불편함을 느껴야 함.
+            속도+완성도는 시스템과 내부자산의 축적으로 달성 가능.
+            "선택이 프로답게가 아니라, 우리 자체가 프로여야 하는 것."
+        </div>
+        <div class="decision">
+            <div class="decision-label">결정사항</div>
+            <div class="decision-text">프로답게는 높을수록 더 좋은 인재. 1등 수준을 지향.</div>
+        </div>
+    </div>
+
+    <!-- 반드시 해낸다 -->
+    <div class="def-card slate">
+        <div class="def-header">
+            <span class="def-name">반드시 해낸다</span>
+            <span class="def-rank rank-base">⚡ 기본 전제</span>
+        </div>
+        <div class="def-oneliner">끝까지 포기하지 않고 해내는 것. 계약 완료까지 완성짓는 것.</div>
+        <div class="def-detail">
+            올해 못 했어도 내년에 무조건 해내는 것. 탑티어로 해내야 하는 것.
+            마인드에 가까우며, 신입이면 육성 가능하나 경력직이면 선발 기준.
+        </div>
+        <div class="decision">
+            <div class="decision-label">결정사항</div>
+            <div class="decision-text">반드시는 기본 전제(끝까지 해내는 마인드). 별도 경쟁 우위가 아닌 필수 조건.</div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PL vs CEO 비교 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-blue"></span>PL그룹 vs CEO 인식 비교</div>
+
+    <div class="card">
+        <div class="card-title">CultureChat 기반 GAP 분석</div>
+
+        <div style="margin-bottom: 16px;">
+            <div style="font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 8px;">프로답게 — 가장 큰 GAP</div>
+            <div class="gap-row">
+                <div class="gap-label">CEO</div>
+                <div class="gap-bar-track"><div class="gap-bar-fill fill-amber" style="width:29%;">29%</div></div>
+            </div>
+            <div class="gap-row">
+                <div class="gap-label">PL 평균</div>
+                <div class="gap-bar-track"><div class="gap-bar-fill fill-blue" style="width:61%;">61%</div></div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <div style="font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 8px;">더 크게 성장한다 — 반대 방향 GAP</div>
+            <div class="gap-row">
+                <div class="gap-label">CEO</div>
+                <div class="gap-bar-track"><div class="gap-bar-fill fill-green" style="width:100%;">100%</div></div>
+            </div>
+            <div class="gap-row">
+                <div class="gap-label">PL 평균</div>
+                <div class="gap-bar-track"><div class="gap-bar-fill fill-blue" style="width:44%;">44%</div></div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <div style="font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 8px;">함께 해낸다 — 잘 정렬됨 ✓</div>
+            <div class="gap-row">
+                <div class="gap-label">CEO</div>
+                <div class="gap-bar-track"><div class="gap-bar-fill fill-purple" style="width:86%;">86%</div></div>
+            </div>
+            <div class="gap-row">
+                <div class="gap-label">PL 평균</div>
+                <div class="gap-bar-track"><div class="gap-bar-fill fill-blue" style="width:83%;">83%</div></div>
+            </div>
+        </div>
+
+        <div class="insight">
+            <div class="insight-label">핵심 시사점</div>
+            <div class="insight-text">"프로답게"에 대해 PL은 과대평가(61%), CEO는 과소평가(29%). CEO 미팅 후 "높을수록 좋은 인재"로 재정의됨. "성장"은 CEO가 매우 중시하나 PL은 상대적으로 저평가.</div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CEO Q&A 핵심 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-amber"></span>CEO 핵심 답변 (Q&A)</div>
+
+    <div class="qa-grid">
+        <div class="qa-item">
+            <div class="qa-q">Q1. 인재상 충돌 시 우선순위</div>
+            <div class="qa-a">함께가 우선. 프로답게는 높을수록 좋음.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q3. 속도 vs 퀄리티</div>
+            <div class="qa-a">외부 기한은 절대 준수. 기한 = 속도.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q4. 기한 vs 완성도 선택</div>
+            <div class="qa-a">무조건 오픈. 기한 우선.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q5. 완벽하지만 늦은 결과물</div>
+            <div class="qa-a">1.0을 기한보다 늦게 내면 불편함.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q7. 0.7 반복 원인</div>
+            <div class="qa-a">일의 양과 우선순위 구조 문제.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q8. 0.7 반복 지속 가능?</div>
+            <div class="qa-a">유지할 수 없다. 아니다.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q9. 반드시는 육성 vs 선발?</div>
+            <div class="qa-a">마인드에 가까움. 신입=육성, 경력=선발기준.</div>
+        </div>
+        <div class="qa-item">
+            <div class="qa-q">Q10. 직무별 차이</div>
+            <div class="qa-a">직무별 강조점을 달리 함.</div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 속도 vs 완성도 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-green"></span>핵심 기준: 속도 vs 완성도</div>
+
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th style="text-align:left;">상황</th><th>기준</th><th>원칙</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>외부 기한 있음<br><span style="font-size:11px;color:#94a3b8;">투자사, 법정기한 등</span></td><td style="color:#dc2626;font-weight:700;">기한 절대 준수</td><td>기한 못 맞추면 모든 것을 놓침</td></tr>
+                <tr><td>내부 프로젝트</td><td style="color:#d97706;font-weight:700;">기한 내 완성도 최대화</td><td>0.7보다 기한 내 최선의 완성도</td></tr>
+                <tr><td>프로의 기준</td><td style="color:#16a34a;font-weight:700;">둘 다 맞춤</td><td>시스템·내부자산 축적으로 달성</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 부동산업 특성 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-red"></span>부동산업 특성 반영</div>
+
+    <div class="card">
+        <div class="quote">
+            <div class="quote-text">"오늘 못 판 생선은 쓰레기"</div>
+            <div class="quote-source">— CEO 직접 발언, 재고(공실) 손실에 대한 인식</div>
+        </div>
+        <ul style="margin-top: 12px;">
+            <li>재고(공실)는 시간이 지나면 회수 불가능한 손실</li>
+            <li>오픈 후 초기 1주일, 1개월이 핵심 골든타임</li>
+            <li>자산 효율화 필수 (예: 300억 건물 외벽 광고판 미활용 문제)</li>
+            <li>일하는 방식에 BM 이해와 업계 특성 반영 필요</li>
+        </ul>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 현재 문제점 & 개선 과제 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-amber"></span>현재 문제점 & 개선 과제</div>
+
+    <div class="warning">
+        <div class="warning-label">문제</div>
+        <div class="warning-text">구성원들이 0.7 수준의 결과물을 반복 생산. 완결성 없이 다음 업무로 넘어가는 패턴.</div>
+    </div>
+    <div class="warning">
+        <div class="warning-label">문제</div>
+        <div class="warning-text">CEO가 산발적으로 주는 태스크가 많아 실무진 과부하 및 집중력 저하.</div>
+    </div>
+    <div class="warning">
+        <div class="warning-label">문제</div>
+        <div class="warning-text">문제 해결에 집중하느라 더 큰 영역(땅 찾기, 기획, 계약)을 실행하지 못함.</div>
+    </div>
+    <div class="decision">
+        <div class="decision-label">합의된 개선안</div>
+        <div class="decision-text">CEO 태스크를 TMT가 필터링하고 우선순위 조정하는 프로세스로 전환.</div>
+    </div>
+    <div class="decision">
+        <div class="decision-label">핵심 집중 영역</div>
+        <div class="decision-text">땅을 찾고 → 상품 기획하고 → 계약/실행하는 핵심 업무에 집중. 바쁜 일이 아닌 중요한 일.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 데이터 기반 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-green"></span>데이터 기반 — 별도 인재상이 아닌 당연한 전제</div>
+    <div class="card">
+        <p>CEO: "데이터 기반이라는 것은 다른 기준이라고 판단한다." 원칙 간 갈등의 문제가 아니라, 판단의 도구로 활용하는 것. 데이터 결과를 기계적으로 적용하는 것이 아님.</p>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 남은 이슈 -->
+<div class="section">
+    <div class="section-title"><span class="dot dot-red"></span>남은 이슈</div>
+    <div class="card">
+        <ul>
+            <li>인재상 우선순위가 실무 의사결정 기준까지 구체화되었는지 검증 필요</li>
+            <li>직무별 인재상 강조점 차등 적용 기준 미수립</li>
+            <li>속도+완성도 동시 달성을 위한 시스템·자산 축적 로드맵 부재</li>
+            <li>TMT 태스크 필터링 프로세스의 담당자·기한 미확정</li>
+            <li>"성장" 인재상에 대한 PL-CEO 간 인식 갭 해소 필요</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    홈즈컴퍼니 일하는방식 TFT | 인재상 핵심요약 v1.0 | 2026.04.21
+</div>
+
+</div>
+</body>
+</html>
